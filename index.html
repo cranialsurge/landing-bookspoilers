@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BookSpoilers - Never Forget a Great Plot Twist Again</title>
+    <meta name="description" content="Instantly recall any book's plot, twists, and ending. The complete database of book spoilers for book lovers.">
+    <meta name="keywords" content="book spoilers, plot summary, book endings, what happens in book">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #764ba2;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #764ba2;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: white;
+            padding-top: 80px;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero-content p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .search-container {
+            max-width: 600px;
+            margin: 2rem auto;
+            position: relative;
+        }
+
+        .search-box {
+            display: flex;
+            background: white;
+            border-radius: 50px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 1rem 1.5rem;
+            border: none;
+            font-size: 1.1rem;
+            outline: none;
+        }
+
+        .search-btn {
+            background: #764ba2;
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .search-btn:hover {
+            background: #5a3a7a;
+        }
+
+        /* Main Content Sections */
+        main {
+            background: white;
+        }
+
+        section {
+            padding: 5rem 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #333;
+        }
+
+        /* Features Section */
+        .features {
+            background: #f8f9fa;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        /* How It Works Section */
+        .how-it-works-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .step {
+            text-align: center;
+            position: relative;
+        }
+
+        .step-number {
+            display: inline-block;
+            width: 60px;
+            height: 60px;
+            background: #764ba2;
+            color: white;
+            border-radius: 50%;
+            line-height: 60px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .step h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        /* Sample Content Preview */
+        .preview-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .book-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+
+        .book-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .book-card-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1.5rem;
+        }
+
+        .book-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .book-author {
+            opacity: 0.9;
+        }
+
+        .book-card-content {
+            padding: 1.5rem;
+        }
+
+        .spoiler-level {
+            display: inline-block;
+            background: #e9ecef;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .spoiler-preview {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 8px;
+            border-left: 4px solid #764ba2;
+            margin: 1rem 0;
+        }
+
+        .reveal-btn {
+            background: #764ba2;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .reveal-btn:hover {
+            background: #5a3a7a;
+        }
+
+        /* CTA Section */
+        .cta {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+
+        .btn-primary, .btn-secondary {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: white;
+            color: #764ba2;
+        }
+
+        .btn-primary:hover {
+            background: #f8f9fa;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .btn-secondary:hover {
+            background: white;
+            color: #764ba2;
+        }
+
+        /* Footer */
+        footer {
+            background: #333;
+            color: white;
+            padding: 3rem 0 1rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1rem;
+            color: #764ba2;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section ul li a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-section ul li a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid #555;
+            color: #ccc;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .search-box {
+                flex-direction: column;
+                border-radius: 15px;
+            }
+
+            .search-btn {
+                border-radius: 0 0 15px 15px;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        /* Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 0.6s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hidden-spoiler {
+            background: #333;
+            color: #333;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .hidden-spoiler:hover {
+            background: #555;
+        }
+
+        .revealed-spoiler {
+            background: transparent;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav class="container">
+            <a href="#" class="logo">📚 BookSpoilers</a>
+            <ul class="nav-links">
+                <li><a href="#features">Features</a></li>
+                <li><a href="#how-it-works">How It Works</a></li>
+                <li><a href="#preview">Preview</a></li>
+                <li><a href="#cta">Join</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content fade-in">
+                <h1>Never Forget a Great Plot Twist Again</h1>
+                <p>Instantly recall any book's plot, twists, and ending. The complete database of book spoilers for book lovers who want to remember the stories they've loved.</p>
+                
+                <div class="search-container">
+                    <div class="search-box">
+                        <input type="text" class="search-input" placeholder="Search for any book title or author..." id="heroSearch">
+                        <button class="search-btn" onclick="performSearch()">Find Spoilers</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <main>
+        <!-- Features Section -->
+        <section id="features" class="features">
+            <div class="container">
+                <h2 class="section-title">Why BookSpoilers?</h2>
+                <div class="features-grid">
+                    <div class="feature-card fade-in">
+                        <div class="feature-icon">🔍</div>
+                        <h3>Comprehensive Database</h3>
+                        <p>Plot summaries, character arcs, and detailed endings for thousands of books, all in one place.</p>
+                    </div>
+                    <div class="feature-card fade-in">
+                        <div class="feature-icon">⚡</div>
+                        <h3>Quick Discovery</h3>
+                        <p>Find books by title, author, genre, or even plot elements. Get the details you need in seconds.</p>
+                    </div>
+                    <div class="feature-card fade-in">
+                        <div class="feature-icon">👥</div>
+                        <h3>Community Driven</h3>
+                        <p>Reader-submitted spoilers and reviews from book lovers who understand what you're looking for.</p>
+                    </div>
+                    <div class="feature-card fade-in">
+                        <div class="feature-icon">🛡️</div>
+                        <h3>Spoiler-Safe Browsing</h3>
+                        <p>Progressive disclosure ensures you only see the spoilers you want, when you want them.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- How It Works Section -->
+        <section id="how-it-works">
+            <div class="container">
+                <h2 class="section-title">How It Works</h2>
+                <div class="how-it-works-steps">
+                    <div class="step fade-in">
+                        <div class="step-number">1</div>
+                        <h3>Search</h3>
+                        <p>Enter the book title, author name, or even describe what you remember about the plot.</p>
+                    </div>
+                    <div class="step fade-in">
+                        <div class="step-number">2</div>
+                        <h3>Choose Detail Level</h3>
+                        <p>Select from quick summary, major spoilers, or complete breakdown based on what you need.</p>
+                    </div>
+                    <div class="step fade-in">
+                        <div class="step-number">3</div>
+                        <h3>Discover</h3>
+                        <p>Get instant access to plot details, character information, and community insights.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sample Content Preview -->
+        <section id="preview" class="features">
+            <div class="container">
+                <h2 class="section-title">Sample Spoiler Previews</h2>
+                <div class="preview-cards">
+                    <div class="book-card fade-in">
+                        <div class="book-card-header">
+                            <div class="book-title">Gone Girl</div>
+                            <div class="book-author">by Gillian Flynn</div>
+                        </div>
+                        <div class="book-card-content">
+                            <span class="spoiler-level">Major Spoilers</span>
+                            <div class="spoiler-preview">
+                                <p><strong>The Big Twist:</strong> <span class="hidden-spoiler" onclick="revealSpoiler(this)">Amy is alive and orchestrated her own disappearance to frame Nick for murder</span></p>
+                                <p><strong>Ending:</strong> <span class="hidden-spoiler" onclick="revealSpoiler(this)">Amy and Nick stay together in a toxic marriage, with Amy pregnant</span></p>
+                            </div>
+                            <button class="reveal-btn" onclick="revealAllSpoilers(this.parentElement)">Reveal All Spoilers</button>
+                        </div>
+                    </div>
+
+                    <div class="book-card fade-in">
+                        <div class="book-card-header">
+                            <div class="book-title">The Sixth Sense</div>
+                            <div class="book-author">Movie Adaptation Reference</div>
+                        </div>
+                        <div class="book-card-content">
+                            <span class="spoiler-level">Plot Summary</span>
+                            <div class="spoiler-preview">
+                                <p><strong>The Revelation:</strong> <span class="hidden-spoiler" onclick="revealSpoiler(this)">Malcolm Crowe (Bruce Willis) has been dead the entire time</span></p>
+                                <p><strong>Key Detail:</strong> <span class="hidden-spoiler" onclick="revealSpoiler(this)">He was shot by his former patient in the opening scene</span></p>
+                            </div>
+                            <button class="reveal-btn" onclick="revealAllSpoilers(this.parentElement)">Reveal All Spoilers</button>
+                        </div>
+                    </div>
+
+                    <div class="book-card fade-in">
+                        <div class="book-card-header">
+                            <div class="book-title">Harry Potter Series</div>
+                            <div class="book-author">by J.K. Rowling</div>
+                        </div>
+                        <div class="book-card-content">
+                            <span class="spoiler-level">Character Arcs</span>
+                            <div class="spoiler-preview">
+                                <p><strong>Snape's Truth:</strong> <span class="hidden-spoiler" onclick="revealSpoiler(this)">He loved Lily Potter and protected Harry throughout the series</span></p>
+                                <p><strong>Final Battle:</strong> <span class="hidden-spoiler" onclick="revealSpoiler(this)">Harry survives because he carries part of Voldemort's soul</span></p>
+                            </div>
+                            <button class="reveal-btn" onclick="revealAllSpoilers(this.parentElement)">Reveal All Spoilers</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Call to Action Section -->
+        <section id="cta" class="cta">
+            <div class="container">
+                <h2 class="section-title">Ready to Never Forget Another Great Story?</h2>
+                <p style="font-size: 1.2rem; margin-bottom: 2rem;">Join thousands of book lovers who use BookSpoilers to instantly recall their favorite plots and discover new stories.</p>
+                <div class="cta-buttons">
+                    <a href="#" class="btn-primary" onclick="performSearch()">Start Searching Books</a>
+                    <a href="#" class="btn-secondary">Join Our Community</a>
+                </div>
+                <div style="margin-top: 2rem;">
+                    <input type="email" placeholder="Enter your email for updates" style="padding: 0.8rem; border-radius: 25px; border: none; margin-right: 1rem; min-width: 300px;">
+                    <button class="btn-primary" style="padding: 0.8rem 1.5rem;">Get Updates</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Popular Genres</h3>
+                    <ul>
+                        <li><a href="#">Mystery & Thriller</a></li>
+                        <li><a href="#">Science Fiction</a></li>
+                        <li><a href="#">Fantasy</a></li>
+                        <li><a href="#">Romance</a></li>
+                        <li><a href="#">Literary Fiction</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Community</h3>
+                    <ul>
+                        <li><a href="#">How to Contribute</a></li>
+                        <li><a href="#">Community Guidelines</a></li>
+                        <li><a href="#">Top Contributors</a></li>
+                        <li><a href="#">Discussion Forums</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Support</h3>
+                    <ul>
+                        <li><a href="#">About BookSpoilers</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Connect</h3>
+                    <ul>
+                        <li><a href="#">Twitter</a></li>
+                        <li><a href="#">Instagram</a></li>
+                        <li><a href="#">Facebook</a></li>
+                        <li><a href="#">Reddit</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 BookSpoilers. Making great stories unforgettable.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Fade in animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animationDelay = '0.1s';
+                    entry.target.classList.add('fade-in');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.feature-card, .step, .book-card').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Search functionality
+        function performSearch() {
+            const searchInput = document.getElementById('heroSearch');
+            const query = searchInput.value.trim();
+            
+            if (query) {
+                // In a real implementation, this would redirect to search results
+                alert(`Searching for: "${query}"\n\nIn the full version, this would take you to detailed spoilers and plot information!`);
+            } else {
+                alert('Please enter a book title or author name to search.');
+            }
+        }
+
+        // Allow Enter key to trigger search
+        document.getElementById('heroSearch').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                performSearch();
+            }
+        });
+
+        // Spoiler reveal functionality
+        function revealSpoiler(element) {
+            element.classList.remove('hidden-spoiler');
+            element.classList.add('revealed-spoiler');
+            element.style.cursor = 'default';
+        }
+
+        function revealAllSpoilers(cardElement) {
+            const hiddenSpoilers = cardElement.querySelectorAll('.hidden-spoiler');
+            hiddenSpoilers.forEach(spoiler => {
+                revealSpoiler(spoiler);
+            });
+            
+            const button = cardElement.querySelector('.reveal-btn');
+            button.textContent = 'All Spoilers Revealed!';
+            button.disabled = true;
+            button.style.opacity = '0.6';
+        }
+
+        // Header background on scroll
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(255, 255, 255, 0.98)';
+            } else {
+                header.style.background = 'rgba(255, 255, 255, 0.95)';
+            }
+        });
+
+        // Initialize animations for elements in viewport
+        document.addEventListener('DOMContentLoaded', () => {
+            const heroContent = document.querySelector('.hero-content');
+            setTimeout(() => {
+                heroContent.style.opacity = '1';
+                heroContent.style.transform = 'translateY(0)';
+            }, 300);
+        });
+    </script>
+</body>
+</html>
