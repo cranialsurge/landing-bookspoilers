@@ -1,2 +1,2 @@
 # landing-bookspoilers
-Landing page for a website about biij spoilers
+Landing page for a website about book spoilers
